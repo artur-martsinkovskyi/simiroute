@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Document>
+    <name>GPS device</name>
+<!-- Normal track style -->
+    <Style id="track_n">
+      <IconStyle>
+        <Icon>
+          <href>http://earth.google.com/images/kml-icons/track-directional/track-none.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+<!-- Highlighted track style -->
+    <Style id="track_h">
+      <IconStyle>
+        <scale>1.2</scale>
+        <Icon>
+          <href>http://earth.google.com/images/kml-icons/track-directional/track-none.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <StyleMap id="track">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#track_n</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#track_h</styleUrl>
+      </Pair>
+    </StyleMap>
+<!-- Normal waypoint style -->
+    <Style id="waypoint_n">
+      <IconStyle>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/pal4/icon61.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+<!-- Highlighted waypoint style -->
+    <Style id="waypoint_h">
+      <IconStyle>
+        <scale>1.2</scale>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/pal4/icon61.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <StyleMap id="waypoint">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#waypoint_n</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#waypoint_h</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="lineStyle">
+      <LineStyle>
+        <color>99ffac59</color>
+        <width>6</width>
+      </LineStyle>
+    </Style>
+    <Folder>
+      <name>Waypoints</name>
+    </Folder>
+    <Folder>
+      <name>Tracks</name>
+
+      <Folder>
+         <name>segment=1</name>
+        <Snippet/>
+        <Folder>
+          <name>Points</name>
+          <Placemark>
+            <name>1</name>
+            <Snippet/>
+            <description><![CDATA[
+              <table>
+                <tr><td>Longitude: 24 </td></tr>
+                <tr><td>Latitude: 41 </td></tr>
+                <tr><td>Altitude: 1371 </td></tr>
+                <tr><td>Time: 2008-08-15T07:03:56Z </td></tr>
+              </table>
+            ]]></description>
+            <LookAt>
+              <longitude>24</longitude>
+              <latitude>41</latitude>
+            </LookAt>
+            <TimeStamp><when>2008-08-15T07:03:56Z</when></TimeStamp>
+            <styleUrl>#track</styleUrl>
+            <Point>
+              <coordinates>24,41,1371</coordinates>
+            </Point>
+          </Placemark>
+          <Placemark>
+            <name>2</name>
+            <Snippet/>
+            <description><![CDATA[
+              <table>
+                <tr><td>Longitude: 25 </td></tr>
+                <tr><td>Latitude: 42 </td></tr>
+                <tr><td>Altitude: 1372 </td></tr>
+                <tr><td>Time: 2008-08-15T07:03:58Z </td></tr>
+              </table>
+            ]]></description>
+            <LookAt>
+              <longitude>25</longitude>
+              <latitude>42</latitude>
+            </LookAt>
+            <TimeStamp><when>2008-08-15T07:03:58Z</when></TimeStamp>
+            <styleUrl>#track</styleUrl>
+            <Point>
+              <coordinates>25,42,1372</coordinates>
+            </Point>
+          </Placemark>
+          <Placemark>
+            <name>3</name>
+            <Snippet/>
+            <description><![CDATA[
+              <table>
+                <tr><td>Longitude: 26 </td></tr>
+                <tr><td>Latitude: 43 </td></tr>
+                <tr><td>Altitude: 1373 </td></tr>
+                <tr><td>Time: 2008-08-15T07:03:59Z </td></tr>
+              </table>
+            ]]></description>
+            <LookAt>
+              <longitude>26</longitude>
+              <latitude>43</latitude>
+            </LookAt>
+            <TimeStamp><when>2008-08-15T07:03:59Z</when></TimeStamp>
+            <styleUrl>#track</styleUrl>
+            <Point>
+              <coordinates>26,43,1373</coordinates>
+            </Point>
+          </Placemark>
+        </Folder>
+        <Placemark>
+          <name>Path</name>
+          <styleUrl>#lineStyle</styleUrl>
+          <LineString>
+            <tessellate>1</tessellate>
+            <coordinates>
+              24,41,1371
+              25,42,1372
+              26,43,1373
+             </coordinates>
+          </LineString>
+        </Placemark>
+      </Folder>
+ </Folder>
+  </Document>
+</kml>
