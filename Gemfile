@@ -30,8 +30,23 @@ gem 'ox'
 # Typed data structures
 gem 'dry-struct'
 
+# Transactions
+gem 'dry-transaction'
+
+# Validations
+gem 'dry-validation'
+
 # File storage
 gem 'carrierwave'
+
+# Sprockets
+gem 'sprockets-rails', require: 'sprockets/railtie'
+
+# Layout without erb
+gem 'haml-rails'
+
+# Pagination
+gem 'kaminari'
 
 group :development, :test do
   gem 'awesome_print'

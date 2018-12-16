@@ -1,8 +1,0 @@
-<p><%= @track.uuid %></p>
-<ol>
-  <% @track.points.each do |point| %>
-    <li><p><%= point.attributes %><p></li>
-  <% end %>
-</ol>
-<%= link_to "Back", tracks_path %>
-

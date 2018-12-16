@@ -3,21 +3,18 @@
 require 'csv'
 require_relative '../../trackpoint'
 require_relative '../../utils'
+require_relative 'base'
 
 module Geo
   module Data
     module Strategies
-      class Plt
+      class Plt < Base
         include Utils
 
-        attr_reader :content
+        private
 
-        def initialize(content)
-          @content = content
-        end
-
-        def call
-          trackpoint_data.map do |trackpoint|
+        def retrieve_data
+          trackpoint_attributes.map do |trackpoint|
             Geo::Trackpoint.new(
               lat: trackpoint[0],
               lon: trackpoint[1],
@@ -27,7 +24,7 @@ module Geo
           end
         end
 
-        def trackpoint_data
+        def trackpoint_attributes
           index = 0
           utf_forced_content.each_line.with_object([]) do |line, result|
             if index < 6

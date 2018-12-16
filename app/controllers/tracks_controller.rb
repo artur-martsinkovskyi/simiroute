@@ -2,29 +2,34 @@
 
 class TracksController < ApplicationController
   def index
-    @tracks = Track.all
+    @tracks = Track.order(:id).page(params[:page])
   end
 
   def show
-    @track = Track.includes(:points).find(params[:id])
+    @track  = Track.includes(:points).find(params[:id])
+    @points = @track.points.page(params[:page])
   end
 
   def new
-    @track = Track.new
+    @errors = {}
   end
 
   def create
-    @track = TrackBuilder.build(permitted_params)
-    if @track.save
-      redirect_to tracks_path
-    else
-      render :new
+    transaction = Tracks::Create.new
+    transaction.(permitted_params) do |result|
+      result.success do |track|
+        redirect_to track_path(track)
+      end
+      result.failure do |errors|
+        @errors = errors
+        render :new
+      end
     end
   end
 
   private
 
   def permitted_params
-    params.require(:track).permit(:track_attachment)
+    params.fetch(:track, {}).permit(:track_attachment)
   end
 end

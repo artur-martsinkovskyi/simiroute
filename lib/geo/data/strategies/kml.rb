@@ -2,19 +2,17 @@
 
 require 'ox'
 require_relative '../../trackpoint'
+require_relative 'base'
 
 module Geo
   module Data
     module Strategies
-      class Kml
-        attr_reader :xml_content
+      class Kml < Base
 
-        def initialize(xml_content)
-          @xml_content = xml_content
-        end
+        private
 
-        def call
-          trackpoint_data.map do |trackpoint|
+        def retrieve_data
+          trackpoint_attributes.map do |trackpoint|
             Geo::Trackpoint.new(
               lat: trackpoint[:LookAt][:latitude],
               lon: trackpoint[:LookAt][:longitude],
@@ -24,14 +22,12 @@ module Geo
           end
         end
 
-        private
-
-        def trackpoint_data
-          xml_hash[:kml][1][:Document][:Folder][1][:Folder][:Folder][:Placemark]
+        def trackpoint_attributes
+          data_hash[:kml][1][:Document][:Folder][1][:Folder][:Folder][:Placemark]
         end
 
-        def xml_hash
-          @xml_hash ||= Ox.load(xml_content, mode: :hash)
+        def data_hash
+          @data_hash ||= Ox.load(content, mode: :hash)
         end
       end
     end

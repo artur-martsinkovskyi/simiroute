@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'geo/data/parser'
+require 'geo/data/exceptions/unknown_extension_error'
 require_relative 'parses_files_with_extension_examples'
 
 describe Geo::Data::Parser do
@@ -22,7 +23,7 @@ describe Geo::Data::Parser do
       end
 
       it 'raises an error' do
-        expect { subject.call }.to raise_error(Geo::Data::UnknownExtensionError)
+        expect { subject.call }.to raise_error(Geo::Data::Exceptions::UnknownExtensionError)
       end
     end
   end

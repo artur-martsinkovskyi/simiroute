@@ -3,11 +3,10 @@
 require_relative 'strategies/gpx'
 require_relative 'strategies/kml'
 require_relative 'strategies/plt'
+require_relative 'exceptions/unknown_extension_error'
 
 module Geo
   module Data
-    UnknownExtensionError = Class.new(StandardError)
-
     class Parser
       attr_reader :file
       def initialize(file)
@@ -26,7 +25,7 @@ module Geo
         when 'kml' then ::Geo::Data::Strategies::Kml
         when 'plt' then ::Geo::Data::Strategies::Plt
         else
-          raise UnknownExtensionError,
+          raise Exceptions::UnknownExtensionError,
                 "Cannot parse files with .#{extname} extension."
         end
       end

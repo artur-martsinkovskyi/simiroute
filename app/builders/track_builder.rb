@@ -4,6 +4,7 @@ require Rails.root.join('lib', 'geo', 'data', 'parser')
 
 class TrackBuilder
   private_class_method :new
+
   def initialize(attrs)
     @attributes = attrs
   end

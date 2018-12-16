@@ -2,19 +2,16 @@
 
 require 'ox'
 require_relative '../../trackpoint'
+require_relative 'base'
 
 module Geo
   module Data
     module Strategies
-      class Gpx
-        attr_reader :content
+      class Gpx < Base
+        private
 
-        def initialize(content)
-          @content = content
-        end
-
-        def call
-          trackpoint_data.map do |trackpoint, element, time|
+        def retrieve_data
+          trackpoint_attributes.map do |trackpoint, element, time|
             Geo::Trackpoint.new(
               lat: trackpoint[:lat],
               lon: trackpoint[:lon],
@@ -24,13 +21,11 @@ module Geo
           end
         end
 
-        private
-
-        def trackpoint_data
-          xml_hash[:gpx][1][:trk][:trkseg][:trkpt]
+        def trackpoint_attributes
+          data_hash[:gpx][1][:trk][:trkseg][:trkpt]
         end
 
-        def xml_hash
+        def data_hash
           Ox.load(content, mode: :hash)
         end
       end

@@ -1,0 +1,26 @@
+.columns
+  .column.col-3.col-mx-auto
+    .panel{style: "padding: 1em"}
+      .panel-header
+        .panel-title
+          %h2.text-center Create Track
+      .panel-nav
+        = image_tag "map", style: "height: 20em", class: "p-centered"
+        %p.text-center Here you can save your tracks. Remember that tracks are submitted in form of .gpx, .plt or .ml format.
+      .panel-body
+        = form_for Track.new, html: { class: "form-horizontal" } do |f|
+          .form-group
+            .col-3
+              %label{class: "form-label", for: "track_attachment"} Track file
+            .col-9
+              = f.file_field :track_attachment,
+                class: "form-input #{@errors[:track_attachment] ? 'is-error' : ''}"
+              - if @errors[:track_attachment]
+                %p{class: "form-input-hint"}
+                  = display_errors(:track_attachment, @errors[:track_attachment])
+          .form-group
+            .col-12
+              = f.submit "Submit track file", class: "btn btn-primary"
+      .panel-footer
+        .divider
+        = link_to "Back", tracks_path, class: "btn"
