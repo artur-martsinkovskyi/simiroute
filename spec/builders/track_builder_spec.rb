@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 require 'geo/trackpoint'
+require 'support/points_helper'
 
 describe TrackBuilder do
   context '.build' do
@@ -48,8 +49,8 @@ describe TrackBuilder do
     subject { described_class.create(params) }
     let(:file_double) { double('FileDouble') }
     let(:trackpoints) do
-      JSON.parse(File.read('spec/fixtures/files/sample.json'))['points'].map do |trackpoint_attrs|
-        Geo::Trackpoint.new(trackpoint_attrs.tap { |attrs| attrs['time'] = Time.parse(attrs['time']) }.symbolize_keys)
+      PointsHelper.point_attributes.map do |trackpoint_attrs|
+        Geo::Trackpoint.new(trackpoint_attrs)
       end
     end
     let(:parser_double) { double('Geo::Data::ParserDouble', call: trackpoints) }

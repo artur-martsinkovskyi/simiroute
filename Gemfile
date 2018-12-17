@@ -57,6 +57,7 @@ end
 group :test do
   gem 'database_cleaner'
   gem 'factory_bot'
+  gem 'factory_bot_rails'
   gem 'rspec'
   gem 'rspec-rails'
   gem 'simplecov', require: false

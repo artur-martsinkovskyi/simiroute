@@ -1,0 +1,15 @@
+AllCops:
+  TargetRubyVersion: 2.5
+  TargetRailsVersion: 5.2
+  Exclude:
+    - 'db/**/*'
+    - 'bin/*'
+    - 'config/**/*'
+    - 'spec/**/*'
+    - 'vendor/**/*'
+
+Documentation:
+    Enabled: false
+
+Rails:
+  Enabled: true

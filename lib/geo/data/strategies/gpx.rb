@@ -15,7 +15,7 @@ module Geo
             Geo::Trackpoint.new(
               lat: trackpoint[:lat],
               lon: trackpoint[:lon],
-              time: Time.parse(time[:time]),
+              time: Time.parse(time[:time]).utc,
               altitude: element[:ele]
             )
           end

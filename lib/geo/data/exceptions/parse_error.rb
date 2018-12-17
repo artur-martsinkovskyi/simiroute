@@ -6,7 +6,9 @@ module Geo
   module Data
     module Exceptions
       class ParseError < BaseError
-        MESSAGE = 'File cannot be parsed due to schema inconsistencies or wrong file format.'
+        MESSAGE = 'File cannot be parsed due to schema inconsistencies or'\
+          'wrong file format.'
+
         def initialize(msg = MESSAGE)
           super
         end

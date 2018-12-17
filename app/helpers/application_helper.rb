@@ -3,9 +3,9 @@
 module ApplicationHelper
   def display_errors(field, errors)
     if errors.is_a?(String)
-      errors
+      "#{field.to_s.humanize} #{errors}."
     else
-      errors.map { |error| "#{field.to_s.humanize} #{error}."}.join(" ")
+      errors.map { |error| display_errors(field, error) }.join(' ')
     end
   end
 end

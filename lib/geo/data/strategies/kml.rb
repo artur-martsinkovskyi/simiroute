@@ -8,7 +8,6 @@ module Geo
   module Data
     module Strategies
       class Kml < Base
-
         private
 
         def retrieve_data
@@ -16,14 +15,18 @@ module Geo
             Geo::Trackpoint.new(
               lat: trackpoint[:LookAt][:latitude],
               lon: trackpoint[:LookAt][:longitude],
-              time: Time.parse(trackpoint[:TimeStamp][:when]),
+              time: Time.parse(trackpoint[:TimeStamp][:when]).utc,
               altitude: trackpoint[:Point][:coordinates].split(',')[2]
             )
           end
         end
 
         def trackpoint_attributes
-          data_hash[:kml][1][:Document][:Folder][1][:Folder][:Folder][:Placemark]
+          data_hash[:kml][1][:Document][:Folder][1].dig(
+            :Folder,
+            :Folder,
+            :Placemark
+          )
         end
 
         def data_hash

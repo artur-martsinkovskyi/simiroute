@@ -14,6 +14,15 @@
 # the additional setup, and require it from the spec files that actually need
 # it.  #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require 'simplecov'
+SimpleCov.start :rails do
+  add_group 'Transactions', 'app/transactions'
+  add_group 'Builders', 'app/builders'
+  add_filter 'app/schemas'
+  add_filter 'app/uploaders'
+  add_filter 'app/channels'
+end
+
 require 'pry'
 
 RSpec.configure do |config|
