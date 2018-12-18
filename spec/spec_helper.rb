@@ -18,6 +18,7 @@ require 'simplecov'
 SimpleCov.start :rails do
   add_group 'Transactions', 'app/transactions'
   add_group 'Builders', 'app/builders'
+  add_group 'Operations', 'app/operations'
   add_filter 'app/schemas'
   add_filter 'app/uploaders'
   add_filter 'app/channels'

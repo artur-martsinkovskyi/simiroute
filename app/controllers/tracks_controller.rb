@@ -15,7 +15,7 @@ class TracksController < ApplicationController
   end
 
   def create
-    transaction = Tracks::Create.new
+    transaction = Tracks::CreateTrack.new
     transaction.call(permitted_params) do |result|
       result.success do |track|
         redirect_to track_path(track)

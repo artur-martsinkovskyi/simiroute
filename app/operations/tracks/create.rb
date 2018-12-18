@@ -4,24 +4,13 @@ require Rails.root.join(
   'lib', 'geo', 'data', 'exceptions', 'unknown_extension_error'
 )
 require Rails.root.join('lib', 'geo', 'data', 'exceptions', 'parse_error')
+require 'dry/transaction/operation'
 
 module Tracks
   class Create
-    include Dry::Transaction
+    include Dry::Transaction::Operation
 
-    step :validate
-    step :create
-
-    def validate(input)
-      validation = TrackSchema.call(input)
-      if validation.success?
-        Success(input)
-      else
-        Failure(validation.errors)
-      end
-    end
-
-    def create(input)
+    def call(input)
       track = TrackBuilder.create(input)
       Success(track)
     rescue Geo::Data::Exceptions::UnknownExtensionError,
