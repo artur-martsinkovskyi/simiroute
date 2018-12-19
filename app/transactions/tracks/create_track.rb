@@ -5,6 +5,7 @@ module Tracks
     include Dry::Transaction(container: Tracks::Container)
 
     step :validate, with: 'tracks.validate'
-    step :create, with: 'tracks.create'
+    step :retrieve_points, with: 'tracks.retrieve_points'
+    step :persist, with: 'tracks.persist'
   end
 end

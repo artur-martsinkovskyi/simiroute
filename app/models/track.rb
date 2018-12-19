@@ -5,4 +5,6 @@ class Track < ApplicationRecord
   before_create -> { self.uuid = SecureRandom.base64 }
 
   mount_uploader :track_attachment, TrackAttachmentUploader
+
+  accepts_nested_attributes_for :points
 end

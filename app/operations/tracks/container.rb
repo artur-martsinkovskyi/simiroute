@@ -9,8 +9,12 @@ module Tracks
         Tracks::Validate.new
       end
 
-      register 'create' do
-        Tracks::Create.new
+      register 'retrieve_points' do
+        Tracks::RetrievePoints.new
+      end
+
+      register 'persist' do
+        Tracks::Persist.new
       end
     end
   end
