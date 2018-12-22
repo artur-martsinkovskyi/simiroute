@@ -3,7 +3,6 @@
 require 'rails_helper'
 require 'geo/trackpoint'
 require 'geo/data/exceptions/parse_error'
-require 'support/points_helper'
 
 describe Tracks::RetrievePoints do
   context '.build' do

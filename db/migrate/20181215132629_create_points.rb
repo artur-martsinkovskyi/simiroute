@@ -6,7 +6,7 @@ class CreatePoints < ActiveRecord::Migration[5.2]
       t.float      :altitude
       t.float      :lat
       t.float      :lon
-      t.datetime   :time
+      t.datetime   :tracked_at
       t.references :track
     end
   end

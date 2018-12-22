@@ -15,7 +15,7 @@ describe ApplicationHelper do
       it "builds an error string" do
         expect(
           display_errors(*attributes)
-        ).to eq("Field is invalid.")
+        ).to eq("is invalid")
       end
     end
 
@@ -33,7 +33,7 @@ describe ApplicationHelper do
       it "builds an error string" do
         expect(
           display_errors(*attributes)
-        ).to eq("Field is invalid. Field is really invalid.")
+        ).to eq("Field is invalid, is really invalid.")
       end
     end
   end

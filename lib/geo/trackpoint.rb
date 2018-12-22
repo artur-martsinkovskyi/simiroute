@@ -8,6 +8,6 @@ module Geo
     attribute :lat, Types::Coercible::Float
     attribute :lon, Types::Coercible::Float
     attribute :altitude, Types::Coercible::Float
-    attribute :time, Types::Strict::Time
+    attribute :tracked_at, Types::Strict::Time
   end
 end

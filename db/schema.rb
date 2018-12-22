@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,20 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_181_215_133_612) do
-  create_table 'points', force: :cascade do |t|
-    t.float 'altitude'
-    t.float 'lat'
-    t.float 'lon'
-    t.date 'time'
-    t.integer 'track_id'
-    t.index ['track_id'], name: 'index_points_on_track_id'
+ActiveRecord::Schema.define(version: 2018_12_23_124828) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "points", force: :cascade do |t|
+    t.float "altitude"
+    t.float "lat"
+    t.float "lon"
+    t.integer "track_id"
+    t.datetime "tracked_at"
+    t.index ["track_id"], name: "index_points_on_track_id"
   end
 
-  create_table 'tracks', force: :cascade do |t|
-    t.string 'uuid'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.string 'track_attachment'
+  create_table "tracks", force: :cascade do |t|
+    t.string "uuid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "track_attachment"
   end
+
 end

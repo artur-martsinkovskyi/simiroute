@@ -1,5 +1,4 @@
 require "rails_helper"
-require "support/points_helper"
 
 describe Tracks::Persist do
   let(:params) do

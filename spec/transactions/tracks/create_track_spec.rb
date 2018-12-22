@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'support/points_helper'
 require 'geo/data/exceptions/parse_error'
 require 'geo/data/parser'
 require 'geo/trackpoint'

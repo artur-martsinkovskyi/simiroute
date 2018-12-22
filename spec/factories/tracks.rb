@@ -1,4 +1,4 @@
-require 'support/points_helper'
+require_relative '../support/points_helper'
 
 FactoryBot.define do
   factory :track do
