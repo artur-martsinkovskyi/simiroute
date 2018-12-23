@@ -43,8 +43,12 @@ gem 'haml-rails'
 # Pagination
 gem 'kaminari'
 
-# Passing variables between JS and Rails
-gem 'gon'
+# Better JSON
+gem 'oj'
+
+
+# Serialization
+gem 'blueprinter'
 
 group :development, :test do
   gem 'awesome_print'

@@ -6,7 +6,7 @@ RUN mkdir /simiroute
 WORKDIR /simiroute
 COPY Gemfile /simiroute/Gemfile
 COPY Gemfile.lock /simiroute/Gemfile.lock
-RUN bundle install --binstubs
+RUN bundle install
 COPY . /simiroute
 
 LABEL maintainer="Artur Marsinkovskyi <artur.martsinkovskyi@perfectial.com"

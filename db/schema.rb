@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2018_12_23_124828) do
   create_table "points", force: :cascade do |t|
     t.float "altitude"
     t.float "lat"
-    t.float "lon"
+    t.float "lng"
     t.integer "track_id"
     t.datetime "tracked_at"
     t.index ["track_id"], name: "index_points_on_track_id"

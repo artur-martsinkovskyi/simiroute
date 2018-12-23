@@ -28,9 +28,11 @@
             %tr
               %td= position
               %td= point.altitude
-              %td= point.lon
+              %td= point.lng
               %td= point.lat
               %td= point.tracked_at
     .col-12
       = paginate @points
 
+= content_for :js do
+  = javascript_include_tag "map"

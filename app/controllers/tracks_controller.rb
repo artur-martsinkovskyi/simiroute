@@ -8,7 +8,6 @@ class TracksController < ApplicationController
   def show
     @track  = Track.includes(:points).find(params[:id])
     @points = @track.points.page(params[:page])
-    gon.points = @track.points.order(:tracked_at).select(:lat, :lon).map { |point| { lat: point.lat, lng: point.lon } }
   end
 
   def new

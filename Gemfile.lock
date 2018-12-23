@@ -44,6 +44,7 @@ GEM
       tzinfo (~> 1.1)
     arel (9.0.0)
     awesome_print (1.8.0)
+    blueprinter (0.9.0)
     builder (3.2.3)
     byebug (10.0.2)
     carrierwave (1.2.3)
@@ -263,6 +264,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
+  blueprinter
   carrierwave
   database_cleaner
   dry-struct

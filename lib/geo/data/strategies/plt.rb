@@ -17,7 +17,7 @@ module Geo
           trackpoint_attributes.map do |trackpoint|
             Geo::Trackpoint.new(
               lat: trackpoint[0],
-              lon: trackpoint[1],
+              lng: trackpoint[1],
               tracked_at: Time.parse("#{@date}T#{trackpoint[-1]}").utc,
               altitude: foot_to_meter(trackpoint[3].to_f)
             )
