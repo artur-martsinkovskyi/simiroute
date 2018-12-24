@@ -46,7 +46,6 @@ gem 'kaminari'
 # Better JSON
 gem 'oj'
 
-
 # Serialization
 gem 'blueprinter'
 

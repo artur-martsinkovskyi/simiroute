@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TrackBlueprint < Blueprinter::Base
   identifier :id
   field :uuid
