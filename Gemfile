@@ -49,6 +49,9 @@ gem 'oj'
 # Serialization
 gem 'blueprinter'
 
+# Bulk import
+gem 'activerecord-import'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'pry-byebug'

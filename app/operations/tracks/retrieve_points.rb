@@ -8,15 +8,14 @@ module Tracks
   class RetrievePoints
     include Dry::Transaction::Operation
 
-    def call(input)
-      file = input[:track_attachment]
+    def call(track_attributes)
+      file = track_attributes[:track_attachment]
       parser = Geo::Data::Parser.new(file)
       points_attributes = parser.call.map(&:attributes)
 
       Success(
-        input.merge(
-          points_attributes: points_attributes
-        )
+        track_attributes: track_attributes,
+        points_attributes: points_attributes
       )
     rescue Geo::Data::Exceptions::BaseError => e
       Failure(track_attachment: e.message)

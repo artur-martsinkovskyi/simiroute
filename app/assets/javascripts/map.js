@@ -1,5 +1,6 @@
+/*global google */
 function initMap(points) {
-  var map = new google.maps.Map(document.getElementById('map-canvas'), {
+  var map = new google.maps.Map(document.getElementById("map-canvas"), {
     zoom: 12,
     center: points[0],
     mapTypeId: "terrain"

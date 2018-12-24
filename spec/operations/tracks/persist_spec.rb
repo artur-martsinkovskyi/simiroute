@@ -8,11 +8,22 @@ describe Tracks::Persist do
     }
   end
 
+  subject { described_class.new.call(params) }
+
   it "succeeds" do
-    expect(subject.call(params)).to be_success
+    expect(subject).to be_success
   end
 
-  it "returns result of track build as success" do
-    expect{ subject.call(params).success }.to change { Track.count }.by(1)
+  it "creates track" do
+    expect{ subject.value! }.to change { Track.count }.by(1)
+  end
+
+  it "creates points" do
+    expect{ subject.value! }.to change { Point.count }.by(params[:points_attributes].size)
+  end
+
+  it "returns track with points" do
+    expect(subject.success).to be_a(Track)
+    expect(subject.success.points).to be_any
   end
 end

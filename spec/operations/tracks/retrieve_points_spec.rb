@@ -34,7 +34,7 @@ describe Tracks::RetrievePoints do
 
       it "builds points properly" do
         expect(subject.success).to match(
-          track_attachment: file,
+          track_attributes: params,
           points_attributes: trackpoints.map(&:attributes)
         )
       end
