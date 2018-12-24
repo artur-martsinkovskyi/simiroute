@@ -17,8 +17,7 @@ describe TrackBlueprint do
     it "renders points" do
       expect(subject[:points]).to eq(
         PointBlueprint.render_as_hash(
-          track.points,
-          view: view
+          track.points
         )
       )
     end

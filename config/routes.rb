@@ -6,7 +6,11 @@ Rails.application.routes.draw do
   resources :tracks, except: %i[edit update destroy]
   namespace :api do
     namespace :v1 do
-      resources :tracks, only: %i[show index]
+      resources :tracks, only: %i[show index] do
+        resources :points, only: %i[index] do
+          get :for_map, on: :collection
+        end
+      end
     end
   end
 end

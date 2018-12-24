@@ -7,10 +7,10 @@ document.addEventListener("DOMContentLoaded", function() {
     headers: {}
   };
 
-  fetch("/api/v1/" + window.location.pathname, opts).then(function (response) {
+  fetch("/api/v1/" + window.location.pathname + "/points/for_map", opts).then(function (response) {
     return response.json();
   }).then(function (body) {
-    googleMap.setPath(body["points"]);
+    googleMap.setPath(body);
   });
 }, false);
 

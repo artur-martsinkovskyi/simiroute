@@ -14,34 +14,15 @@ describe Api::V1::TracksController do
       expect(subject).to be_successful
     end
 
-    context "when passed no view http parameter" do
-      it "responds with minimal" do
+      it "calls blueprint" do
         expect(TrackBlueprint).to receive(:render)
-          .with(track, view: :minimal)
+          .with(track, instance_of(Hash))
         subject
       end
-    end
-
-    context "when passed no view http parameter" do
-      let(:params) do
-        {
-          id: track.id,
-          view: :full
-        }
-      end
-
-      it "responds with full" do
-        expect(TrackBlueprint).to receive(:render)
-          .with(track, view: :full)
-        subject
-      end
-    end
   end
 
   context "#index" do
-    before do
-      create(:track)
-    end
+    before { create(:track) }
     subject { get :index }
 
     it "returns success" do
@@ -50,7 +31,7 @@ describe Api::V1::TracksController do
 
     it "renders response" do
         expect(TrackBlueprint).to receive(:render)
-          .with(Track.all, view: :minimal)
+          .with(Track.all, instance_of(Hash))
         subject
     end
   end

@@ -1,1 +1,1 @@
-Rails.application.config.assets.precompile += %w( map.js )
+Rails.application.config.assets.precompile += %w( maps/initialize_map.js )

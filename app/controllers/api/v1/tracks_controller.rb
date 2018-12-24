@@ -3,6 +3,8 @@
 module Api
   module V1
     class TracksController < BaseController
+      blueprinter_views_for :track
+
       def show
         render json: TrackBlueprint.render(resource, view: view)
       end
@@ -16,14 +18,6 @@ module Api
 
       def resource
         @resource ||= Track.find(params[:id])
-      end
-
-      def view
-        if params[:view] == 'full'
-          :full
-        else
-          :minimal
-        end
       end
     end
   end

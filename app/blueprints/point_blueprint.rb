@@ -3,13 +3,13 @@
 class PointBlueprint < Blueprinter::Base
   identifier :id
 
-  view :minimal do
-    field :lat
-    field :lng
-  end
+  FULL    = :full
+  VIEWS   = [FULL].freeze
 
-  view :full do
-    include_view :minimal
+  field :lat
+  field :lng
+
+  view FULL do
     field :altitude
     field :tracked_at
   end

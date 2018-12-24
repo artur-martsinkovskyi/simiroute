@@ -3,9 +3,12 @@
 class TrackBlueprint < Blueprinter::Base
   identifier :id
   field :uuid
+  MINIMAL = :minimal
+  FULL    = :full
+  VIEWS   = [MINIMAL, FULL].freeze
 
   view :minimal do
-    association :points, blueprint: PointBlueprint, view: :minimal
+    association :points, blueprint: PointBlueprint
   end
 
   view :full do
