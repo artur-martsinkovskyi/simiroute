@@ -2,7 +2,7 @@
 
 const GoogleMap = function(elementId) {
   let self = this;
-  self.map = new google.maps.Map(document.getElementById(element_id), {
+  self.map = new google.maps.Map(document.getElementById(elementId), {
     zoom: 12,
     mapTypeId: "hybrid"
   });
