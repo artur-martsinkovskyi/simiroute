@@ -1,5 +1,7 @@
 # README
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/0d06fec8a6b14d419648a588a4c552de)](https://app.codacy.com/app/deimoss42/simiroute?utm_source=github.com&utm_medium=referral&utm_content=artur-martsinkovskyi/simiroute&utm_campaign=Badge_Grade_Settings)
+
 ## Software versions
 
 -   Ruby 2.5.1
