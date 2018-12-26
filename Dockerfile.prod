@@ -10,7 +10,11 @@ RUN mkdir -p $INSTALL_PATH
 WORKDIR $INSTALL_PATH
 COPY Gemfile ./Gemfile
 COPY Gemfile.lock ./Gemfile.lock
-RUN bundle install
+RUN gem install bundler && bundle install --jobs 20 --retry 5 --without development test
+ENV RAILS_ENV production
+ENV RACK_ENV  production
 COPY . ./
+
+RUN bundle exec rake SECRET_KEY_BASE=d0655dc0-9e5d-41ca-9738-f0f4cf388578 assets:precompile
 
 LABEL maintainer="Artur Marsinkovskyi <deimoss42@gmail.com>"
