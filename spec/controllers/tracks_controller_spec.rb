@@ -46,7 +46,7 @@ describe TracksController do
   end
 
   context "#create" do
-    subject { -> { post :create, params: params } }
+    subject { post :create, params: params }
 
     context "with valid attributes" do
       let(:params) do
@@ -56,15 +56,15 @@ describe TracksController do
       end
 
       it "is successful" do
-        expect(subject.call.status).to be(302)
+        expect(subject).to have_http_status(302)
       end
 
       it "creates a track" do
-        expect { subject.call }.to change { Track.count }.by(1)
+        expect { subject }.to change { Track.count }.by(1)
       end
 
       it "creates points" do
-        expect { subject.call }.to change { Point.count }.by(3)
+        expect { subject }.to change { Point.count }.by(3)
       end
     end
 
@@ -76,15 +76,15 @@ describe TracksController do
       end
 
       it "renders new" do
-        expect(subject.call.body).to include("Create Track")
+        expect(subject.body).to include("Create Track")
       end
 
       it "does not create a track" do
-        expect { subject.call }.not_to change { Track.count }
+        expect { subject }.not_to change { Track.count }
       end
 
       it "does not create points" do
-        expect { subject.call }.not_to change { Point.count }
+        expect { subject }.not_to change { Point.count }
       end
     end
   end

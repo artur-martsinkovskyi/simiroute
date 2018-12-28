@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'geo/data/parser'
+require 'geo/data/constants'
 require 'geo/data/exceptions/unknown_extension_error'
 require_relative 'parses_files_with_extension_examples'
 
@@ -11,19 +12,18 @@ describe Geo::Data::Parser do
     context 'with valid file extension' do
       include_examples 'parses file with extension', 'gpx'
       include_examples 'parses file with extension', 'kml'
-      include_examples 'parses file with extension', 'plt'
     end
 
-    context 'with unknown file extension' do
+    context "with unknown mime type" do
       let(:file) do
         double(
-          path: 'double.wrong',
+          path: 'double.txt',
           read: ''
         )
       end
 
       it 'raises an error' do
-        expect { subject.call }.to raise_error(Geo::Data::Exceptions::UnknownExtensionError)
+        expect { subject.call }.to raise_error(Geo::Data::Exceptions::UnknownMimeTypeError)
       end
     end
   end

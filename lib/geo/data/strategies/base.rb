@@ -18,6 +18,10 @@ module Geo
         rescue StandardError
           raise Exceptions::ParseError
         end
+
+        def self.can_process?(extension)
+          self.extension == extension
+        end
       end
     end
   end

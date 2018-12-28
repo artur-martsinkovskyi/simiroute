@@ -3,11 +3,16 @@
 require 'ox'
 require_relative '../../trackpoint'
 require_relative 'base'
+require_relative '../constants'
 
 module Geo
   module Data
     module Strategies
       class Gpx < Base
+        def self.extension
+          Constants::GPX
+        end
+
         private
 
         def retrieve_data

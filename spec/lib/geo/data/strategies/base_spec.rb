@@ -31,11 +31,33 @@ describe Geo::Data::Strategies::Base do
         end
       end
 
-      it "reraises exception with custom one" do
+      it "reraises exception with custom" do
         expect { subject }.to raise_error(
           Geo::Data::Exceptions::ParseError,
           Geo::Data::Exceptions::ParseError::MESSAGE
         )
+      end
+    end
+  end
+
+  context ".can_process?" do
+    let(:mock_child) do
+      Class.new(described_class) do
+        def self.extension
+          "gpx"
+        end
+      end
+    end
+
+    context "with matching extension" do
+      it "returns true" do
+        expect(mock_child.can_process?("gpx")).to be true
+      end
+    end
+
+    context "with mismatching extension" do
+      it "returns false" do
+        expect(mock_child.can_process?("ppt")).to be false
       end
     end
   end

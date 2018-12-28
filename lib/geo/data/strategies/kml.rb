@@ -8,6 +8,10 @@ module Geo
   module Data
     module Strategies
       class Kml < Base
+        def self.extension
+          Constants::KML
+        end
+
         private
 
         def retrieve_data

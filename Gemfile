@@ -52,6 +52,12 @@ gem 'blueprinter'
 # Bulk import
 gem 'activerecord-import'
 
+# Auth
+gem 'clearance'
+
+# Mime type detection
+gem 'mimemagic'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'pry-byebug'
