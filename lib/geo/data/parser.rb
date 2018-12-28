@@ -2,7 +2,6 @@
 
 require_relative 'strategies/gpx'
 require_relative 'strategies/kml'
-require_relative 'exceptions/unknown_extension_error'
 require_relative 'exceptions/unknown_mime_type_error'
 require_relative 'constants'
 require 'mimemagic'

@@ -11,7 +11,7 @@ module Api
       end
 
       def for_map
-        @points = DecimatedQuery.new(parent.points).call
+        @points = parent.points
         render json: PointBlueprint.render(@points, view: view)
       end
 

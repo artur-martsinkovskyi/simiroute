@@ -10,22 +10,40 @@ describe Tracks::RetrievePoints do
 
     context 'with valid attributes' do
       let(:file) { double('FileDouble') }
+      let(:sequence) { "sequence" }
       let(:trackpoints) do
         PointsHelper.point_attributes.map do |trackpoint_attrs|
           Geo::Trackpoint.new(trackpoint_attrs)
         end
       end
-      let(:parser_double) { double('Geo::Data::ParserDouble', call: trackpoints) }
 
       before do
         expect(Geo::Data::Parser).to receive(:new)
-          .with(file).and_return(parser_double)
+          .with(file).and_return(
+            double(
+              call: trackpoints
+            )
+        )
+      end
+
+      before do
+        expect(Geo::Displacement::PointMappingGenerator).to receive(:new)
+          .exactly(trackpoints.size).times.and_return(double(call: sequence))
       end
 
       let(:params) do
         {
           track_attachment: file
         }
+      end
+
+      let(:points_attributes) do
+        trackpoints.map do |trackpoint|
+          {
+            **trackpoint.attributes,
+            displacement_sequence: sequence
+          }
+        end
       end
 
       it 'succeeds' do
@@ -35,7 +53,7 @@ describe Tracks::RetrievePoints do
       it "builds points properly" do
         expect(subject.success).to match(
           track_attributes: params,
-          points_attributes: trackpoints.map(&:attributes)
+          points_attributes: points_attributes
         )
       end
     end

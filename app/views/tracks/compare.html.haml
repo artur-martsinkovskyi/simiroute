@@ -1,0 +1,24 @@
+.columns
+  .column.col-10.col-mx-auto
+    .col-12
+      = link_to "Back", tracks_path, class: "btn"
+  .column.col-10.col-mx-auto
+    .col-12
+      #map-container
+        #map-canvas
+    .col-12
+      %h1
+        Track similarity is
+        %span#similarity
+          yet unknown.
+      .form-group
+        .col-9
+          = select_tag "track1", options_from_collection_for_select(@tracks, :id, :name), id: "select-track1"
+        .col-9
+          = select_tag "track2", options_from_collection_for_select(@tracks, :id, :name), id: "select-track2"
+      .form-group
+        .col-12
+          = submit_tag "Compare tracks", class: "btn btn-primary", id: "compare-track"
+
+= content_for :js do
+  = javascript_include_tag "maps/tracks/compare"

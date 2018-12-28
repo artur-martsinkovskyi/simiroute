@@ -5,6 +5,10 @@ require 'dry/transaction/operation'
 module Tracks
   class Persist
     include Dry::Transaction::Operation
+    # This requires performance tests and consideration to pick
+    # the most optimal batch size, but for now I just picked a
+    # value from the top of my head.
+    BATCH_SIZE = 2000
 
     def call(input)
       track = Track.new(input[:track_attributes])
@@ -14,7 +18,7 @@ module Tracks
         point_attrs
       end
 
-      Point.import(points)
+      Point.import(points, batch_size: BATCH_SIZE)
       Success(track)
     end
   end

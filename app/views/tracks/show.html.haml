@@ -22,6 +22,7 @@
             %th Longitude
             %th Latitude
             %th Tracked at
+            %th Displacement sequence
         %tbody
           - i = (@points.size * ((params[:page] || 1).to_i - 1)) + 1
           - @points.zip(i..(i + @points.size)).each do |point, position|
@@ -31,8 +32,9 @@
               %td= point.lng
               %td= point.lat
               %td= point.tracked_at
+              %td= point.displacement_sequence
     .col-12
       = paginate @points
 
 = content_for :js do
-  = javascript_include_tag "maps/initialize_map"
+  = javascript_include_tag "maps/tracks/show"

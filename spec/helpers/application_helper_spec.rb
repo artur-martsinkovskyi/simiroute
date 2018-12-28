@@ -3,6 +3,8 @@ require "rails_helper"
 describe ApplicationHelper do
   include ApplicationHelper
 
+  subject { display_errors(*attributes) }
+
   context "#display_errors" do
     context "with string passed" do
       let(:attributes) do
@@ -13,9 +15,7 @@ describe ApplicationHelper do
       end
 
       it "builds an error string" do
-        expect(
-          display_errors(*attributes)
-        ).to eq("is invalid")
+        expect(subject).to eq("is invalid")
       end
     end
 
@@ -31,10 +31,16 @@ describe ApplicationHelper do
       end
 
       it "builds an error string" do
-        expect(
-          display_errors(*attributes)
-        ).to eq("Field is invalid, is really invalid.")
+        expect(subject).to eq("Field is invalid, is really invalid.")
       end
+    end
+  end
+
+  context "with errant datatype passed" do
+    let(:attributes) { [:field, nil] }
+
+    it "raises an error" do
+      expect { subject }.to raise_error(ArgumentError)
     end
   end
 end

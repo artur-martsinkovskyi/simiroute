@@ -19,6 +19,8 @@ SimpleCov.start :rails do
   add_group 'Transactions', 'app/transactions'
   add_group 'Builders', 'app/builders'
   add_group 'Operations', 'app/operations'
+  add_group 'Services', 'app/services'
+  add_group 'Blueprints', 'app/blueprints'
   add_filter 'app/schemas'
   add_filter 'app/uploaders'
   add_filter 'app/channels'

@@ -10,6 +10,10 @@ class TracksController < ApplicationController
     @points = @track.points.page(params[:page])
   end
 
+  def compare
+    @tracks = Track.all
+  end
+
   def new
     @errors = {}
   end

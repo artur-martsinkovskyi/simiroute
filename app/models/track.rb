@@ -7,4 +7,8 @@ class Track < ApplicationRecord
   mount_uploader :track_attachment, TrackAttachmentUploader
 
   accepts_nested_attributes_for :points
+
+  def name
+    "#{File.basename(track_attachment.path)} - #{uuid}"
+  end
 end

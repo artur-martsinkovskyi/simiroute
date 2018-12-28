@@ -1,1 +1,4 @@
-Rails.application.config.assets.precompile += %w( maps/initialize_map.js )
+Rails.application.config.assets.precompile += %w(
+ maps/tracks/show.js
+ maps/tracks/compare.js
+)

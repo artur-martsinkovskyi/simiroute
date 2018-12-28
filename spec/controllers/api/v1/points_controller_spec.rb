@@ -20,11 +20,6 @@ describe Api::V1::PointsController do
     let(:track) { create(:track) }
     subject { get :for_map, params: { track_id: track.id } }
 
-    before do
-      expect(DecimatedQuery).to receive(:new)
-        .with(track.points).and_return(double(call: track.points))
-    end
-
     it "returns success" do
       expect(subject).to be_successful
     end

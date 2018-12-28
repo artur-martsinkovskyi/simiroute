@@ -2,7 +2,6 @@
 
 require 'geo/data/parser'
 require 'geo/data/constants'
-require 'geo/data/exceptions/unknown_extension_error'
 require_relative 'parses_files_with_extension_examples'
 
 describe Geo::Data::Parser do
