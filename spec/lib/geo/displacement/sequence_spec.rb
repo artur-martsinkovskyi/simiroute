@@ -1,13 +1,15 @@
-require "geo/displacement/sequence"
+# frozen_string_literal: true
+
+require 'geo/displacement/sequence'
 
 describe Geo::Displacement::Sequence do
-  context "#call" do
-    subject { described_class.call(params) }
+  describe '#call' do
+    subject(:sequence) { described_class.call(params) }
 
     let(:lat) { double }
     let(:lng) { double }
-    let(:longitude_limits) { double }
-    let(:latitude_limits) { double }
+    let(:latitude_limits) { instance_spy(Array, 'LatitudeLimits') }
+    let(:longitude_limits) { instance_spy(Array, 'LongitudeLimits') }
     let(:params) do
       {
         lat: lat,
@@ -17,18 +19,24 @@ describe Geo::Displacement::Sequence do
       }
     end
 
-    it "duplicates limits" do
-      expect(latitude_limits).to receive(:dup)
+    # By an unknown reason have_received post assert
+    # strategy does not work here, so I suppressed rubocop
+    # and used pre assert spying.
+    # rubocop: disable RSpec/MessageSpies
+    # rubocop: disable RSpec/MultipleExpectations
+    it 'duplicates limits' do
       expect(longitude_limits).to receive(:dup)
-      subject
+      expect(latitude_limits).to receive(:dup)
+      sequence
+    end
+    # rubocop: enable RSpec/MultipleExpectations
+    # rubocop: enable RSpec/MessageSpies
+
+    it 'returns an enumerator' do
+      expect(sequence).to be_an(Enumerator)
     end
 
-
-    it "returns an enumerator" do
-      expect(subject).to be_an(Enumerator)
-    end
-
-    context "without limits passed" do
+    context 'without limits passed' do
       let(:params) do
         {
           lat: lat,
@@ -36,17 +44,21 @@ describe Geo::Displacement::Sequence do
         }
       end
 
-      it "uses default limits" do
-        expect(described_class).to receive(:new).with(
-          lat,
-          lng,
-          described_class::LATITUDE_LIMITS,
-          described_class::LONGITUDE_LIMITS
-        ).and_call_original
-        subject
+      before do
+        allow(described_class).to receive(:new).and_call_original
+      end
+
+      it 'uses default limits' do
+        sequence
+        expect(described_class)
+          .to have_received(:new).with(
+            lat,
+            lng,
+            described_class::LATITUDE_LIMITS,
+            described_class::LONGITUDE_LIMITS
+          )
       end
     end
-
 
     [
       [{ lat: -90, lng: -180 }, [1, 1, 1, 1]],
@@ -55,15 +67,15 @@ describe Geo::Displacement::Sequence do
       [{ lat:  90, lng:  180 }, [4, 4, 4, 4]],
       [{ lat:  0,  lng:  0 },   [4, 3, 3, 3]],
       [{ lat:  45, lng:  45 },  [4, 3, 4, 3]],
-      [{ lat:  38, lng: -38 },  [3, 4, 4, 3]],
+      [{ lat:  38, lng: -38 },  [3, 4, 4, 3]]
     ].each do |attrs, result|
       context "with #{attrs}" do
         let(:params) do
           attrs
         end
 
-        it "returns correct sequence" do
-          expect(subject.take(4)).to eq(result)
+        it 'returns correct sequence' do
+          expect(sequence.take(4)).to eq(result)
         end
       end
     end

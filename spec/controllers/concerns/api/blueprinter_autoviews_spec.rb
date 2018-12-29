@@ -1,4 +1,6 @@
-require "rails_helper"
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 class DummyBlueprint
   MAXIMAL = :maximal
@@ -7,7 +9,7 @@ class DummyBlueprint
 end
 
 describe Api::BlueprinterAutoviews do
-  subject do
+  subject(:mock_controller) do
     Class.new do
       extend Api::BlueprinterAutoviews
 
@@ -23,52 +25,52 @@ describe Api::BlueprinterAutoviews do
     end
   end
 
-  context "with view fallback" do
+  context 'with view fallback' do
     let(:view_fallback) { DummyBlueprint::MINIMAL }
+
     before do
-      subject.blueprinter_views_for(
+      mock_controller.blueprinter_views_for(
         :dummy,
         view_fallback: view_fallback
       )
     end
 
-    context "with valid view param passed" do
+    context 'with valid view param passed' do
       let(:view_param) { DummyBlueprint::MAXIMAL }
 
-      it "returns its value" do
-        expect(subject.new(view_param).view).to eq(view_param)
+      it 'returns its value' do
+        expect(mock_controller.new(view_param).view).to eq(view_param)
       end
     end
 
-
-    context "with invalid view param passed" do
+    context 'with invalid view param passed' do
       let(:view_param) { :invalid }
 
-      it "returns default value" do
-        expect(subject.new(view_param).view).to eq(view_fallback)
+      it 'returns default value' do
+        expect(mock_controller.new(view_param).view).to eq(view_fallback)
       end
     end
   end
 
-  context "without view fallback" do
+  context 'without view fallback' do
     before do
-      subject.blueprinter_views_for(:dummy)
+      mock_controller.blueprinter_views_for(:dummy)
     end
 
-    context "with valid view param passed" do
+    context 'with valid view param passed' do
       let(:view_param) { DummyBlueprint::MAXIMAL }
 
-      it "returns its value" do
-        expect(subject.new(view_param).view).to eq(view_param)
+      it 'returns its value' do
+        expect(mock_controller.new(view_param).view).to eq(view_param)
       end
     end
 
-
-    context "with invalid view param passed" do
+    context 'with invalid view param passed' do
       let(:view_param) { :invalid }
 
-      it "returns default value" do
-        expect(subject.new(view_param).view).to eq(described_class::VIEW_FALLBACK)
+      it 'returns default value' do
+        expect(mock_controller.new(view_param).view)
+          .to eq(described_class::VIEW_FALLBACK)
       end
     end
   end

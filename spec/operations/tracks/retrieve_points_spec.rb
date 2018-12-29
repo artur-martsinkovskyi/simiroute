@@ -5,30 +5,27 @@ require 'geo/trackpoint'
 require 'geo/data/exceptions/parse_error'
 
 describe Tracks::RetrievePoints do
-  context '.build' do
-    subject { described_class.new.call(params) }
+  describe '.build' do
+    subject(:operation) { described_class.new.call(params) }
 
     context 'with valid attributes' do
-      let(:file) { double('FileDouble') }
-      let(:sequence) { "sequence" }
-      let(:trackpoints) do
-        PointsHelper.point_attributes.map do |trackpoint_attrs|
-          Geo::Trackpoint.new(trackpoint_attrs)
-        end
-      end
-
       before do
-        expect(Geo::Data::Parser).to receive(:new)
+        allow(Geo::Data::Parser).to receive(:new)
           .with(file).and_return(
             double(
               call: trackpoints
             )
-        )
+          )
+        allow(Geo::Displacement::PointMappingGenerator).to receive(:new)
+          .and_return(double(call: sequence))
       end
 
-      before do
-        expect(Geo::Displacement::PointMappingGenerator).to receive(:new)
-          .exactly(trackpoints.size).times.and_return(double(call: sequence))
+      let(:file) { double('FileDouble') }
+      let(:sequence) { 'sequence' }
+      let(:trackpoints) do
+        PointsHelper.trackpoint_attributes.map do |trackpoint_attrs|
+          Geo::Trackpoint.new(trackpoint_attrs)
+        end
       end
 
       let(:params) do
@@ -46,12 +43,18 @@ describe Tracks::RetrievePoints do
         end
       end
 
-      it 'succeeds' do
-        expect(subject).to be_success
+      it 'call point mapping generator on every point' do
+        operation.value!
+        expect(Geo::Displacement::PointMappingGenerator).to have_received(:new)
+          .exactly(trackpoints.size).times
       end
 
-      it "builds points properly" do
-        expect(subject.success).to match(
+      it 'succeeds' do
+        expect(operation).to be_success
+      end
+
+      it 'builds points properly' do
+        expect(operation.success).to match(
           track_attributes: params,
           points_attributes: points_attributes
         )
@@ -60,17 +63,21 @@ describe Tracks::RetrievePoints do
 
     context 'with invalid attributes' do
       let(:params) { {} }
+      let(:parser) { double }
+
       before do
-        allow_any_instance_of(Geo::Data::Parser).to receive(:call)
+        allow(Geo::Data::Parser).to receive(:new).and_return(parser)
+        allow(parser).to receive(:call)
           .and_raise(Geo::Data::Exceptions::ParseError)
       end
 
       it 'fails' do
-        expect(subject).to be_failure
+        expect(operation).to be_failure
       end
 
-      it "fails with proper message" do
-        expect(subject.failure).to eq(track_attachment: Geo::Data::Exceptions::ParseError::MESSAGE)
+      it 'fails with proper message' do
+        expect(operation.failure)
+          .to eq(track_attachment: Geo::Data::Exceptions::ParseError::MESSAGE)
       end
     end
   end

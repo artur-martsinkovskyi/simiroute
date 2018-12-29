@@ -8,19 +8,26 @@ shared_examples 'parses file with extension' do |extension|
         read: ''
       )
     end
-    let(:double_strategy) { double(extension.capitalize, call: []) }
+    let(:double_strategy) { spy(extension.capitalize) }
 
     before do
       allow(
-        eval("Geo::Data::Strategies::#{extension.capitalize}")
+        # rubocop: disable Security/Eval
+        eval(
+          "Geo::Data::Strategies::#{extension.capitalize}",
+          nil,
+          __FILE__,
+          __LINE__ - 3
+        )
+        # rubocop: enable Security/Eval
       ).to receive(:new).and_return(
         double_strategy
       )
     end
 
     it 'calls proper strategy' do
-      expect(double_strategy).to receive(:call)
-      subject.call
+      parser_call_result
+      expect(double_strategy).to have_received(:call)
     end
   end
 end
