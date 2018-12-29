@@ -1,0 +1,17 @@
+.columns
+  .column.col-3.col-mx-auto
+    .panel{style: "padding: 1em"}
+      .panel-header
+        .panel-title
+          %h2.text-center= t(".title")
+      .panel-body
+        = form_for @user, html: { class: "form-horizontal" } do |form|
+          = render partial: '/users/form', object: form
+          .form-group
+            .col-12
+              = form.submit nil, class: "btn btn-primary"
+      .panel-footer
+        .divider
+        = link_to "Back", tracks_path, class: "btn"
+        = link_to t(".sign_in"), sign_in_path, class: "btn"
+

@@ -1,0 +1,21 @@
+.columns
+  .column.col-4.col-mx-auto
+    .panel{style: "padding: 1em"}
+      .panel-header
+        .panel-title
+          %h2.text-center= t(".title")
+      .panel-nav
+        %p.text-center= t(".description")
+      .panel-body
+        = form_for :password,
+          url: user_password_path(@user, token: @user.confirmation_token),
+          html: { method: :put, class: "form-horizontal" } do |form|
+          .form-group
+            .col-12
+              = form.label :password, class: "form-label"
+            .col-12
+              = form.password_field :password, class: "form-input"
+          .form-group
+            .col-2.col-mx-auto
+              = form.submit nil, class: "btn btn-primary"
+

@@ -1,6 +1,5 @@
 /*global google */
 
-
 const GoogleMap = function(elementId) {
   let self = this;
   self.map = new google.maps.Map(document.getElementById(elementId), {
@@ -8,15 +7,19 @@ const GoogleMap = function(elementId) {
     mapTypeId: "hybrid"
   });
   self.trackPaths = [];
-  self.setPath = function(points, color) {
+  self.setPath = function(points, options = {}) {
+    let trackOptions = Object.assign(
+      {
+        path: points,
+        geodesic: true,
+        strokeColor: "red",
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+      },
+      options
+    );
     let center = points[Math.round(points.length / 2)];
-    let trackPath = new google.maps.Polyline({
-      path: points,
-      geodesic: true,
-      strokeColor: color || 'red',
-      strokeOpacity: 1.0,
-      strokeWeight: 2
-    });
+    let trackPath = new google.maps.Polyline(trackOptions);
 
     self.map.setCenter(center);
     trackPath.setMap(self.map);
@@ -27,5 +30,5 @@ const GoogleMap = function(elementId) {
       el.setMap(null);
     });
     self.trackPaths = [];
-  }
+  };
 };

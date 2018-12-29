@@ -20,12 +20,18 @@ document.addEventListener(
     let similarityHeading = document.getElementById("similarity");
 
     function setPath(id, color) {
-      fetch("/api/v1/tracks/" + id + "/points/for_map", opts)
+      fetch("/api/v1/tracks/" + id + "/points/", opts)
         .then(function(response) {
           return response.json();
         })
         .then(function(body) {
-          googleMap.setPath(body, color || getRandomColor());
+          googleMap.setPath(
+            body,
+            {
+              strokeColor: color || getRandomColor(),
+              strokeWeight: 3
+            }
+          );
         });
     }
 
@@ -38,7 +44,9 @@ document.addEventListener(
           return response.json();
         })
         .then(function(body) {
-          googleMap.setPath(body["points"], color || getRandomColor());
+          googleMap.setPath(body["points"], {
+            strokeColor: color || getRandomColor()
+          });
           similarityHeading.innerHTML =
             body["similarity"][0] +
             "% and " +

@@ -10,11 +10,6 @@ module Api
         render json: PointBlueprint.render(@points, view: view)
       end
 
-      def for_map
-        @points = parent.points
-        render json: PointBlueprint.render(@points, view: view)
-      end
-
       private
 
       def parent

@@ -27,7 +27,7 @@ module Tracks
     def similarity
       [
         track1_to_track2_similarity,
-        track2_to_track1_similarirty
+        track2_to_track1_similarity
       ]
     end
 

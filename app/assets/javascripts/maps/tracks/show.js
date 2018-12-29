@@ -9,7 +9,7 @@ document.addEventListener(
       headers: {}
     };
 
-    fetch("/api/v1/" + window.location.pathname + "/points/for_map", opts)
+    fetch("/api/v1/" + window.location.pathname + "/points/", opts)
       .then(function(response) {
         return response.json();
       })
