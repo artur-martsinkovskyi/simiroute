@@ -18,7 +18,8 @@
         %div.bg-primary{style: "margin: 2em; padding: 1em"}
           %i.icon.icon-4x.icon-photo
       %section.navbar-section
-        = link_to "Sign in", sign_in_path, class: "btn btn-link"
-        = link_to "Sign up", sign_up_path, class: "btn btn-link"
+        - unless signed_in?
+          = link_to "Sign in", sign_in_path, class: "btn btn-link"
+          = link_to "Sign up", sign_up_path, class: "btn btn-link"
     %div{class: "container", style: "margin-top: 5em; margin-bottom: 5em;"}
       = yield

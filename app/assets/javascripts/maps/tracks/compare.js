@@ -17,55 +17,73 @@ document.addEventListener(
       method: "GET",
       headers: {}
     };
-    let similarityHeading = document.getElementById("similarity");
 
     function setPath(id, color) {
-      fetch("/api/v1/tracks/" + id + "/points/", opts)
+      return fetch("/api/v1/tracks/" + id + "/points/", opts)
         .then(function(response) {
           return response.json();
-        })
-        .then(function(body) {
-          googleMap.setPath(
-            body,
-            {
-              strokeColor: color || getRandomColor(),
-              strokeWeight: 3
-            }
-          );
         });
     }
 
     function setComparisonPath(trackId1, trackId2, color) {
-      fetch(
+      return fetch(
         "/api/v1/tracks/compare?track1=" + trackId1 + "&track2=" + trackId2,
         opts
-      )
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(body) {
-          googleMap.setPath(body["points"], {
-            strokeColor: color || getRandomColor()
+      ).then(function(response) {
+        return response.json();
+      });
+    }
+
+
+    let similarityHeading = document.getElementById("similarity");
+    let compareTrackButton = document.getElementById("compare-track");
+    let selectTrack1 = document.getElementById("select-track1");
+    let selectTrack2 = document.getElementById("select-track2");
+
+
+    function setupComparisonPaths() {
+      googleMap.reset();
+      let trackId1 = selectTrack1.value;
+      let trackId2 = selectTrack2.value;
+      Promise.all(
+        [
+          setPath(trackId1),
+          setPath(trackId2),
+          setComparisonPath(trackId1, trackId2)
+        ]
+      ).then(
+        function(result) {
+          let [firstTrack, secondTrack, comparisonResult] = result;
+
+          googleMap.setPath(
+            firstTrack,
+            {
+              strokeColor: 'blue',
+              strokeWeight: 3
+            }
+          );
+          googleMap.setPath(
+            secondTrack,
+            {
+              strokeColor: 'yellow',
+              strokeWeight: 4
+            }
+          );
+          googleMap.setPath(comparisonResult["points"], {
+            strokeColor: 'red',
+            strokeWeight: 2
           });
           similarityHeading.innerHTML =
-            body["similarity"][0] +
+            comparisonResult["similarity"][0] +
             "% and " +
-            body["similarity"][1] +
+            comparisonResult["similarity"][1] +
             "% for each track accordingly.";
         });
     }
 
-    let compareTrackButton = document.getElementById("compare-track");
-    let selectTrack1 = document.getElementById("select-track1");
-    let selectTrack2 = document.getElementById("select-track2");
-    compareTrackButton.addEventListener("click", function(e) {
-      googleMap.reset();
-      let trackId1 = selectTrack1.value;
-      let trackId2 = selectTrack2.value;
-      setPath(trackId1, "blue");
-      setPath(trackId2, "yellow");
-      setComparisonPath(trackId1, trackId2, "red");
-    });
+    setupComparisonPaths();
+
+    compareTrackButton.addEventListener("click", setupComparisonPaths);
   },
   false
 );

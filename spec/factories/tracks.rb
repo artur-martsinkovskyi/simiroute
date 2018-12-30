@@ -4,6 +4,7 @@ require_relative '../support/points_helper'
 
 FactoryBot.define do
   factory :track do
+    association :user
     track_attachment do
       Rack::Test::UploadedFile.new(
         Rails.root.join(

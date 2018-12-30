@@ -35,8 +35,14 @@ describe Tracks::CreateTrack do
   end
 
   context 'with valid_data' do
-    let(:file) { double('FileDouble')  }
-    let(:params) { { track_attachment: file } }
+    let(:user) { create(:user) }
+    let(:params) do
+      {
+        **attributes_for(:track),
+        user_id: user.id
+      }
+    end
+    let(:file) { params[:track_attachment] }
     let(:parser) { double('ParserDouble') }
     let(:trackpoints) do
       PointsHelper.trackpoint_attributes.map do |attrs|

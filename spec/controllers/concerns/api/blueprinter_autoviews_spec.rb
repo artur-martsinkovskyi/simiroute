@@ -11,7 +11,7 @@ end
 describe Api::BlueprinterAutoviews do
   subject(:mock_controller) do
     Class.new do
-      extend Api::BlueprinterAutoviews
+      include Api::BlueprinterAutoviews
 
       def initialize(view_param)
         @view_param = view_param

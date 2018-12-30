@@ -21,7 +21,7 @@ module Tracks
         @track2.points.any? do |other_point|
           other_point.displacement_sequence == point.displacement_sequence
         end
-      end
+        end.uniq
     end
 
     def similarity
@@ -32,11 +32,11 @@ module Tracks
     end
 
     def track1_to_track2_similarity
-      (points.size / (@track1.points.size / 100.0)).round(2)
+      (points.size / (@track1.points.pluck(:displacement_sequence).uniq.size / 100.0)).round(2)
     end
 
     def track2_to_track1_similarity
-      (points.size / (@track2.points.size / 100.0)).round(2)
+      (points.size / (@track2.points.pluck(:displacement_sequence).uniq.size / 100.0)).round(2)
     end
   end
 end

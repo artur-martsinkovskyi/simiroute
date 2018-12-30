@@ -12,14 +12,18 @@ module Tracks
 
     def call(input)
       track = Track.new(input[:track_attributes])
-      track.save
-      points = input[:points_attributes].map do |point_attrs|
-        point_attrs[:track_id] = track.id
-        point_attrs
-      end
+      ActiveRecord::Base.transaction do
+        track.save!
+        points = input[:points_attributes].map do |point_attrs|
+          point_attrs[:track_id] = track.id
+          point_attrs
+        end
 
-      Point.import(points, batch_size: BATCH_SIZE)
-      Success(track)
+        Point.import(points, batch_size: BATCH_SIZE)
+        Success(track)
+      end
+    rescue ActiveRecord::RecordInvalid
+      Failure(track.errors.messages.to_h)
     end
   end
 end

@@ -4,13 +4,15 @@
       %thead
         %tr
           %th{colspan: 5}
-            = link_to "Add track", new_track_path, class: "btn btn-primary"
-            = link_to "Compare tracks", compare_tracks_path, class: "btn btn-primary"
+            - if signed_in?
+              = link_to "Add track", new_track_path, class: "btn btn-primary"
+              = link_to "Compare tracks", compare_tracks_path, class: "btn btn-primary"
         %tr
           %th Id
           %th Uuid
           %th Created at
           %th Updated at
+          %th User email
           %th View
       %tbody
         - @tracks.each do |track|
@@ -19,6 +21,7 @@
             %td= track.uuid
             %td= track.created_at
             %td= track.updated_at
+            %td= track.user.email
             %td
               =link_to track_path(track), class: "btn btn-primary" do
                 %i{class: "icon icon-more-vert"}

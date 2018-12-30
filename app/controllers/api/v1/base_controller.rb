@@ -3,7 +3,7 @@
 module Api
   module V1
     class BaseController < ActionController::API
-      extend Api::BlueprinterAutoviews
+      include Api::BlueprinterAutoviews
     end
   end
 end

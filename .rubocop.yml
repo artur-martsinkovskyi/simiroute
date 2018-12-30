@@ -16,6 +16,9 @@ Rails:
 Metrics/BlockLength:
   Enabled: false
 
+Metrics/MethodLength:
+  Max: 15
+
 RSpec/VerifiedDoubles:
   Enabled: false
 RSpec/ExampleLength:

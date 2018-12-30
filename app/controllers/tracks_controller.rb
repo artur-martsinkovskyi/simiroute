@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class TracksController < ApplicationController
+  before_action :require_login, only: %i[
+    new create compare
+  ]
+
   def index
     @tracks = Track.order(:id).page(params[:page])
   end
@@ -34,6 +38,8 @@ class TracksController < ApplicationController
   private
 
   def permitted_params
-    params.fetch(:track, {}).permit(:track_attachment)
+    params.fetch(:track, {})
+          .permit(:track_attachment)
+          .merge(user_id: current_user.id)
   end
 end

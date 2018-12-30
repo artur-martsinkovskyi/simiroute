@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 class Track < ApplicationRecord
+  belongs_to :user
   has_many :points, dependent: :destroy
   before_create -> { self.uuid = SecureRandom.base64 }
+
+  validates :track_attachment, presence: true
 
   mount_uploader :track_attachment, TrackAttachmentUploader
 
