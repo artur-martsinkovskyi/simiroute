@@ -25,12 +25,22 @@ module Tracks
     def points_attributes(file)
       parser = Geo::Data::Parser.new(file)
 
-      parser.call.map do |trackpoint|
-        attrs = trackpoint.attributes
-        attrs[:displacement_sequence] =
-          Geo::Displacement::PointMappingGenerator.new(trackpoint).call
-        attrs
-      end
+      trackpoints_by_displacement = Hash.new { |h, key| h[key] = [] }
+
+      parser
+        .call
+        .each_with_object(trackpoints_by_displacement) do |trackpoint, result|
+          displacement_sequence =
+            Geo::Displacement::PointMappingGenerator.new(trackpoint).call
+          attrs = trackpoint.attributes
+
+          attrs[:displacement_sequence] = displacement_sequence
+          attrs[:uniq_by_displacement] = !result.key?(displacement_sequence)
+
+          result[displacement_sequence] << attrs
+        end
+
+      trackpoints_by_displacement.values.flatten
     end
   end
 end

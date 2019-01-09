@@ -8,5 +8,6 @@ FactoryBot.define do
     lng { 1 }
     sequence(:displacement_sequence, &:to_s)
     altitude { 1 }
+    uniq_by_displacement { true }
   end
 end

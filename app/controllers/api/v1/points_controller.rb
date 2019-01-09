@@ -6,7 +6,7 @@ module Api
       blueprinter_views_for :point
 
       def index
-        @points = parent.points
+        @points = parent.points.uniq_by_displacement
         render json: PointBlueprint.render(@points, view: view)
       end
 

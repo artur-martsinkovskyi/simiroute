@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_29_185029) do
+ActiveRecord::Schema.define(version: 2019_01_05_091938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2018_12_29_185029) do
     t.integer "track_id"
     t.datetime "tracked_at"
     t.string "displacement_sequence"
+    t.boolean "uniq_by_displacement", default: false
     t.index ["track_id"], name: "index_points_on_track_id"
   end
 

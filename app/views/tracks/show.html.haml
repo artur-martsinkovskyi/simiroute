@@ -26,7 +26,7 @@
         %tbody
           - i = (@points.size * ((params[:page] || 1).to_i - 1)) + 1
           - @points.zip(i..(i + @points.size)).each do |point, position|
-            %tr
+            %tr{ class: "#{point.uniq_by_displacement? ? 'yellow' : ''}" }
               %td= position
               %td= point.altitude
               %td= point.lng

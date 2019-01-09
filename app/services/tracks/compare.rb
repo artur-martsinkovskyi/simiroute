@@ -9,19 +9,19 @@ module Tracks
 
     def call
       {
-        points: points,
+        points: intersection_points,
         similarity: similarity
       }
     end
 
     private
 
-    def points
-      @points ||= @track1.points.select do |point|
-        @track2.points.any? do |other_point|
+    def intersection_points
+      @intersection_points ||= points1.select do |point|
+        points2.any? do |other_point|
           other_point.displacement_sequence == point.displacement_sequence
         end
-        end.uniq
+      end
     end
 
     def similarity
@@ -32,11 +32,19 @@ module Tracks
     end
 
     def track1_to_track2_similarity
-      (points.size / (@track1.points.pluck(:displacement_sequence).uniq.size / 100.0)).round(2)
+      (intersection_points.size / (points1.size / 100.0)).round(2)
     end
 
     def track2_to_track1_similarity
-      (points.size / (@track2.points.pluck(:displacement_sequence).uniq.size / 100.0)).round(2)
+      (intersection_points.size / (points2.size / 100.0)).round(2)
+    end
+
+    def points1
+      @points1 ||= @track1.points.uniq_by_displacement
+    end
+
+    def points2
+      @points2 ||= @track2.points.uniq_by_displacement
     end
   end
 end

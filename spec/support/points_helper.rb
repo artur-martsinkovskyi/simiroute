@@ -33,21 +33,24 @@ module PointsHelper
       lng: '24',
       altitude: '1371',
       tracked_at: '2008-08-15T07:03:56Z',
-      displacement_sequence: 'tsstssstssstssstssst'
+      displacement_sequence: 'tsstssstssstssstssst',
+      uniq_by_displacement: true
     },
      {
        lat: '42',
        lng: '25',
        altitude: '1372',
        tracked_at: '2008-08-15T07:03:58Z',
-       displacement_sequence: 'tsstssstttssstttssst'
+       displacement_sequence: 'tsstssstttssstttssst',
+       uniq_by_displacement: true
      },
      {
        lat: '43',
        lng: '26',
        altitude: '1373',
        tracked_at: '2008-08-15T07:03:59Z',
-       displacement_sequence: 'tsstsstsstttttstssts'
+       displacement_sequence: 'tsstsstsstttttstssts',
+       uniq_by_displacement: true
      }]
   end
   # rubocop: enable Metrics/MethodLength

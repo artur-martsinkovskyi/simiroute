@@ -16,3 +16,8 @@
  *= require spectre-icons
  *= require spectre-exp
  */
+
+.yellow {
+  background: yellow;
+  opacity:    0.5;
+}
