@@ -5,7 +5,7 @@ require_relative 'sequence'
 module Geo
   module Displacement
     class PointMappingGenerator
-      DEPTH = 20
+      DEPTH = 25
       TILE_MAPPING = {
         1 => 'p',
         2 => 'q',

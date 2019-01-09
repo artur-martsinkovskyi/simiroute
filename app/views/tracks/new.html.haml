@@ -6,7 +6,7 @@
           %h2.text-center Create Track
       .panel-nav
         = image_tag "map", style: "height: 20em", class: "p-centered"
-        %p.text-center Here you can save your tracks. Remember that tracks are submitted in form of .gpx, .plt or .ml format.
+        %p.text-center Here you can save your tracks. Remember that tracks are submitted in form of .gpx or .kml format.
       .panel-body
         = form_for Track.new, html: { class: "form-horizontal" } do |f|
           .form-group

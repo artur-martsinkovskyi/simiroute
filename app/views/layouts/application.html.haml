@@ -18,7 +18,9 @@
         %div.bg-primary{style: "margin: 2em; padding: 1em"}
           %i.icon.icon-4x.icon-photo
       %section.navbar-section
-        - unless signed_in?
+        - if signed_in?
+          = link_to "Sign out", sign_out_path, class: "btn btn-link", method: :delete
+        - else
           = link_to "Sign in", sign_in_path, class: "btn btn-link"
           = link_to "Sign up", sign_up_path, class: "btn btn-link"
     %div{class: "container", style: "margin-top: 5em; margin-bottom: 5em;"}
