@@ -16,12 +16,13 @@ module Tracks
 
     private
 
+    attr_reader :track1, :track2
+
     def intersection_points
-      @intersection_points ||= points1.select do |point|
-        points2.any? do |other_point|
-          other_point.displacement_sequence == point.displacement_sequence
-        end
-      end
+      @intersection_points ||= points1.joins(
+        "INNER JOIN points as rpoints on rpoints.track_id = #{track2.id}"
+      ).where('points.displacement_sequence = rpoints.displacement_sequence '\
+              'AND rpoints.uniq_by_displacement = true')
     end
 
     def similarity
