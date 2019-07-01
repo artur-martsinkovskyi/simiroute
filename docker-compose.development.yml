@@ -1,0 +1,45 @@
+version: '3'
+
+volumes:
+  postgres:
+
+services:
+  db:
+    image: postgres
+    expose:
+      - 5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: simiroute_development
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+
+  web: &web
+    build: . # В качестве образа будет использоваться Dockerfile в текущей директории
+    command: bundle exec rails server -b 0.0.0.0 # переопределяем команду запуска контейнера
+    entrypoint: "./docker-entrypoint.sh" # указываем какую команду нужно запустить перед тем как контейнер запустится
+    volumes:
+      - .:/home/www/simiroute
+      - /home/www/simiroute/vendor/bundle
+      - /home/www/simiroute/public/assets
+    tty: true
+    stdin_open: true
+    restart: on-failure
+    environment:
+      RAILS_ENV: development
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: simiroute_development
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      SECRET_KEY_BASE: STUB
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+

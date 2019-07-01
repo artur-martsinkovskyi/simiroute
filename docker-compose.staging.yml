@@ -1,0 +1,56 @@
+version: '3'
+
+volumes:
+  postgres:
+  assets:
+
+services:
+  db:
+    image: postgres
+    expose:
+      - 5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: simiroute_staging
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+
+  web: &web
+    build: .
+    command: bundle exec puma -C config/puma.rb
+    entrypoint: "./docker-entrypoint.sh"
+    volumes:
+      - assets:/home/www/simiroute/public/assets
+      - ./config/master.key:/home/www/simiroute/config/master.key
+    environment:
+      RAILS_ENV: staging
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: simiroute_staging
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      REDIS_DB: "redis://in_memory_store:6379"
+      SECRET_KEY_BASE: STUB
+    depends_on:
+      - db
+    expose:
+      - 3000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+
+  web_server:
+    build: ./deploy/configs/nginx
+    volumes:
+      - assets:/home/www/simiroute/public/assets
+    environment:
+      CUSTOM_APP_VHOST: web
+      STATIC_PATH: /home/www/simiroute/public
+    ports:
+      - 80:8080
+    depends_on:
+      - web
+    healthcheck:
+      test: ["CMD-SHELL", "service nginx status || exit 1"]

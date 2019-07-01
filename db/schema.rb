@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 2019_01_05_091938) do
     t.float "altitude"
     t.float "lat"
     t.float "lng"
-    t.integer "track_id"
     t.datetime "tracked_at"
+    t.bigint "track_id"
     t.string "displacement_sequence"
     t.boolean "uniq_by_displacement", default: false
     t.index ["track_id"], name: "index_points_on_track_id"
