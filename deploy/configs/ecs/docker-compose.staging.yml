@@ -1,0 +1,50 @@
+version: '3'
+
+volumes:
+  assets:
+
+services:
+  web: &web
+    image: 585491715118.dkr.ecr.us-east-1.amazonaws.com/simiroute/web:staging
+    command: bundle exec puma -C config/puma.rb
+    entrypoint: "./docker-entrypoint.sh"
+    ports:
+      - 3000
+    volumes:
+      - assets:/home/www/simiroute/public/assets
+    environment:
+      RAILS_ENV: staging
+      RAILS_MASTER_KEY: 10ff2c8a2fa6ca9f6d9c3ad7871d5844
+      DB_HOST: simiroute-staging.cpt6b3qxf6z0.us-east-1.rds.amazonaws.com
+      DB_PORT: 5432
+      DB_NAME: simiroute_staging
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: simiroute-staging
+        awslogs-region: us-east-1
+        awslogs-stream-prefix: web
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+
+  web_server:
+    image: 585491715118.dkr.ecr.us-east-1.amazonaws.com/simiroute/web_server:staging
+    volumes:
+      - assets:/home/www/simiroute/public/assets
+    environment:
+      STATIC_PATH: /home/www/simiroute/public
+    ports:
+      - 80:8080
+    links:
+      - web
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: simiroute-staging
+        awslogs-region: us-east-1
+        awslogs-stream-prefix: web_server
+    healthcheck:
+      test: ["CMD-SHELL", "service nginx status || exit 1"]
+
