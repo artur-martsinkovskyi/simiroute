@@ -35,7 +35,7 @@ describe Tracks::Compare do
         end
 
         it 'returns matching first point tracks' do
-          expect(comparison_result[:points]).to eq(track1.points.take(2))
+          expect(comparison_result[:points]).to match_array(track1.points.first(2))
         end
 
         it 'returns 66% similarity in both ways' do
@@ -57,7 +57,7 @@ describe Tracks::Compare do
         end
 
         it 'returns matching first point tracks' do
-          expect(comparison_result[:points]).to eq(track1.points.take(2))
+          expect(comparison_result[:points]).to match_array(track1.points.first(2))
         end
 
         it 'returns 66% similarity from first to second' do

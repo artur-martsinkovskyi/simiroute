@@ -7,13 +7,14 @@
 
 -   Ruby 2.5.3
 -   Rails 5.2.2
--   PostgreSQL 9.6.10
+-   PostgreSQL 9.6.10(Actually using AWS RDS)
 
 ## Installation and launch
 
 This application is configured to run inside the Docker container. To install it you first need to install [docker](https://docs.docker.com/install/) and [docker-compose](https://docs.docker.com/compose/install/). Beware setting them to require root access because this may mess up your permissions. After you install `docker` and `docker-compose` just run
-`docker-compose build` and `docker-compose up` after build finishes. You are awesome.
+`docker-compose build` and `docker-compose up` after build finishes. Development docker-compose config is stored in `docker-compose.development.yml`. All the required data for staging deploy is stored in deploy folder. This application is meant to be run on AWS ECS.
+
 
 ## How to run the test suite
 
-When application is built run `docker-compose run web rspec`.
+When application is built run `docker-compose -f docker-compose.development.yml -p simiroute run web rspec`.

@@ -58,6 +58,9 @@ gem 'clearance'
 # Mime type detection
 gem 'mimemagic'
 
+# AWS SDK
+gem 'aws-sdk'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'pry-byebug'

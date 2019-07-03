@@ -7,6 +7,11 @@ require 'geo/trackpoint'
 
 describe Tracks::CreateTrack do
   subject(:transaction) { described_class.new.call(params) }
+  let(:distance) { 10 }
+
+  before do
+    allow_any_instance_of(Lambdas::DistanceLambda).to receive(:call).with(payload: instance_of(Array)).and_return(distance)
+  end
 
   context 'with invalid data' do
     context 'with invalid parameters' do

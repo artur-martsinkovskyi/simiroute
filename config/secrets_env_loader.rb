@@ -19,8 +19,6 @@ class SecretsEnvLoader
   end
 
   def secret_credentials
-    Rails.logger.log("AAAAAAAAAAAAAAAAAAAAAA")
-    Rails.logger.log(Rails.application.credentials.public_send(Rails.env))
     Rails.application.credentials.public_send(Rails.env)
   end
 end

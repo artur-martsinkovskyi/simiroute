@@ -4,6 +4,11 @@ require 'rails_helper'
 
 describe TracksController do
   render_views
+  let(:distance) { 10 }
+
+  before do
+    allow_any_instance_of(Lambdas::DistanceLambda).to receive(:call).with(payload: instance_of(Array)).and_return(distance)
+  end
 
   context 'when not logged in' do
     describe '#index' do

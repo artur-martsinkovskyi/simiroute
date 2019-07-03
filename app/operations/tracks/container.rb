@@ -13,6 +13,10 @@ module Tracks
         Tracks::RetrievePoints.new
       end
 
+      register 'calculate_distance' do
+        Tracks::CalculateDistance.new
+      end
+
       register 'persist' do
         Tracks::Persist.new
       end
